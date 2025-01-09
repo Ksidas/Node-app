@@ -6,7 +6,19 @@ import userRouter from "./src/route/user.js";
 import taskRouter from "./src/route/task.js";
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // React aplikacijos adresas
+    methods: ["GET", "POST", "DELETE"],
+    credentials: true, // Jei naudosite cookies arba autentifikaciją
+  })
+);
+app.use(express.json());
+
+// Jūsų API routes
+app.get("/api/questions", (req, res) => {
+  res.json([{ _id: "1", title: "First Question" }]); // Pavyzdiniai duomenys
+});
 
 app.use(express.json());
 

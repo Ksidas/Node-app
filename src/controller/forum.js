@@ -1,7 +1,7 @@
-import Question from "../models/Question.js";
-import Answer from "../models/Answer.js";
+import Question from "../model/Question.js";
+import Answer from "../model/Answer.js";
 import bcrypt from "bcrypt";
-import User from "../models/User.js";
+import User from "../model/user.js";
 import jwt from "jsonwebtoken";
 
 export const REGISTER_USER = async (req, res) => {

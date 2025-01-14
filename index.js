@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 import userRouter from "./src/route/user.js";
-import taskRouter from "./src/route/task.js";
+import taskRouter from "./src/route/router.js";
 
 const app = express();
 
@@ -18,12 +18,10 @@ app.use(
 
 app.use(express.json());
 
-// API Routes
 app.use("/api/users", userRouter);
 app.use("/api/tasks", taskRouter);
 
-// Example: Fetch all questions
-import Question from "./src/models/Question.js";
+import Question from "./src/model/Question.js";
 
 app.get("/api/questions", async (req, res) => {
   try {
@@ -34,24 +32,18 @@ app.get("/api/questions", async (req, res) => {
   }
 });
 
-// MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_CONNECTION, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_CONNECTION, {})
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => {
     console.error("Failed to connect to MongoDB:", error.message);
-    process.exit(1); // Terminate process
+    process.exit(1);
   });
 
-// Fallback for non-existing routes
 app.use((req, res) => {
   res.status(404).json({ response: "Your endpoint does not exist" });
 });
 
-// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
